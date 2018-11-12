@@ -6,3 +6,6 @@ class Title {
   this.genre = genre;
   }
 }
+
+
+exports.Title = Title;
