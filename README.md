@@ -49,3 +49,21 @@ Table : Loans
 
 
 	https://stackoverflow.com/questions/9875223/auto-increment-table-column
+
+
+Made Schema using http://db.lewagon.com/ as a starting point and then editing the generated SQL.
+
+Foreign keys need to be set up last due to depending on all tables being created first.
+
+Querying the DB via pg-promises requires you to have a valid username and password, and the DB set up so that user either has ownership of the bookish DB or has permissions given to them by the DB owner.
+
+				GRANT CONNECT ON DATABASE bookish TO bookish;
+				GRANT USAGE ON SCHEMA public TO bookish;
+
+				GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA public TO bookish;
+				-- and the sequences, for INSERT to work
+				GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO bookish;
+				-- and the functions
+				GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO bookish;
+
+Querying the DB returns data in the form of an array of objects. We've made a class Titles.js which resembles the objects pulled down; will be useful for sending up records to add to the DB.
