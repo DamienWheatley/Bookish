@@ -21,43 +21,31 @@ Create a library management API that supports the following:
 
 
 Table : Users
-	- user ID
+	- PK : user ID
 	- name
-	- current books on loan >> loan
-	- owed fines
 
-Table : Author
-	-	author ID
-
-<!-- Table : Library catalogue
-	-	catalogue ID
-	- title
-	- Author
-	- Total copies in Library
-	- List of copies' IDs -->
+Table : Titles
+ 	- PK: ISBN (ID)
+	- Title
+	- author
+	- list of copies by ID (array)
+	- genre/section
 
 Table : Books
-	- unique book IDs for multiple copies of the same title
-	- title
-	- author
-	- ISBN
-	- genre/section
+	- PK: unique book IDs for multiple copies of the same title
+	- FK: ISBN
   - on loan: true/false
-	- current loan >> entry in loan details Table
-	- past loans >> entries in loan details Table
 
 Table : Loans
-	- loan ID
-	- user ID
-	- Loan date
-	- Return date
-
-Table : Loan details
-	- loan ID
-	- user ID
-	- book ID
+	- PK: loan ID
+	- FK: user ID
+	- FK: book ID
 	- Loan date
 	- Return date
 	- Status (on loan, late return, returned)
-	- fine due : true/false
-	- fine amount
+	- fine amount : 0 default
+
+
+
+
+	https://stackoverflow.com/questions/9875223/auto-increment-table-column
