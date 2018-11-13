@@ -5,6 +5,10 @@ const app = express()
 const port = 3000 //for server
 const listCatalogue = require('./index.js').listCatalogue;
 const addTitle = require('./index.js').addTitle;
+const getUserID = require('./index.js').getUserID;
+const getUserLoans = require('./index.js').getUserLoans;
+
+
 
 const mustache = require('mustache');
 const fs = require('fs');
@@ -36,9 +40,28 @@ app.post('/AddTitle', (request, response) => {
   let isbn = request.body.isbn;
   addTitle(isbn, title, author, genre);
 
-  response.send(console.log("completed"))
+  response.redirect(302, "/index.html")
 
 })
+
+app.get('/Loans', (request, response) => {
+    response.send(fs.readFileSync( './frontend/loans.html' , {encoding: 'UTF-8'}))
+})
+
+app.post('/Loans', (request, response) => {
+  let forename = request.body.forename;
+  let surname = request.body.surname;
+  getUserID(forename, surname).then( user => {
+    return getUserLoans(user.user_id)
+  })
+  .then( userloans => {
+    test = userloans.usersloans[0]; //NEED TO MAKE THIS ITERATE WITH MUSTACHE SIMILAR TO CATALOGUE OBJ:ARRAY:OBJECTS ABOVE
+    const template = fs.readFileSync( './frontend/usersloans.html' , {encoding: 'UTF-8'});
+    let html = mustache.render( template, test);
+    response.send(html)
+  })
+})
+
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

@@ -1,8 +1,8 @@
 class User {
-  constructor(forename, surname, id){
-    this.forename = ;
-    this.surname = ;
-    this.id = ;
+  constructor(forename, surname, user_id){
+    this.forename = forename;
+    this.surname = surname;
+    this.user_id = user_id;
   }
 }
 

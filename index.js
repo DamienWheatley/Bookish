@@ -1,20 +1,20 @@
 const loginInfo = require('./password.js').config;
-
+const moment = require('moment')
 const pgp = require('pg-promise')(/*options*/)
 const db = pgp(`postgres://${loginInfo.username}:${loginInfo.password}@localhost:5432/bookish`)
 
 const Title = require('./Title.js').Title;
-// const User = require('./User.js').User;
+const User = require('./User.js').User;
+const UserLoan = require('./UserLoan.js').UserLoan;
 
 
 
 function listCatalogue(){
-  return db.query('SELECT * FROM Titles')
+  return db.query('SELECT * FROM Titles ORDER BY title, author;')
     .then(function (data) {
       let array = [];
       data.forEach( object => {
         array.push(new Title(object.isbn, object.title, object.author, object.genre))
-        //Can add app.get block here to print to localhost 3000 ,  but need to delete the above app.get block
       })
       return {
         titles: array
@@ -28,20 +28,46 @@ function listCatalogue(){
     return 'Book added to Bookish database'
     }
 
-  // function listUsers(){
-  //   return db.query('SELECT * FROM Users')
-  //     .then(function (data) {
-  //       let array = [];
-  //       data.forEach( object => {
-  //         array.push(new User(object.forename, object.surname, object.id))
-  //         //Can add app.get block here to print to localhost 3000 ,  but need to delete the above app.get block
-  //       })
-  //
-  //       let json = JSON.stringify(array);
-  //       return json;
-  //     })
-  //   }
+
+  function getUserID(forename, surname){
+    return db.query(`SELECT user_id, forename, surname FROM Users WHERE forename = '${forename}' AND surname = '${surname}'`)
+    .then(function (data) {
+      let user = new User(data[0].forename, data[0].surname, data[0].user_id)
+      return user;
+    })
+
+  }
+
+// getUserID('Bloggs', 'Bob').then(x =>{console.log(x)})
+
+
+
+
+
+  function getUserLoans(id){
+    return db.query(`SELECT Loans.loan_id, Loans.loan_date, Loans.return_date, Loans.user_id, Users.forename, Users.surname, Loans.book_id, Titles.title, Books.isbn\
+    FROM Loans\
+    JOIN Books\
+    ON Loans.book_id = Books.book_id\
+    JOIN Titles\
+    ON Books.isbn = Titles.isbn\
+    JOIN Users\
+    ON Loans.user_id = Users.user_id\
+    WHERE Users.user_id = ${id};`)
+    .then(function (data) {
+      let array = [];
+      data.forEach( object => {
+        array.push(new UserLoan(object.loan_id, object.user_id, moment(object.loan_date).subtract(10, 'days').calendar(), moment(object.return_date).subtract(10, 'days').calendar(), object.forename, object.surname, object.book_id, object.title, object.isbn))
+      })
+      return {
+        usersloans: array
+      };
+    })
+
+  }
 
 
 exports.listCatalogue = listCatalogue;
 exports.addTitle = addTitle;
+exports.getUserID = getUserID;
+exports.getUserLoans = getUserLoans;

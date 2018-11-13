@@ -11,6 +11,6 @@ function sendSearchTitlesRequest() {
       console.log(response);
 
       }
-  }
+
   xhttp.send();
 }

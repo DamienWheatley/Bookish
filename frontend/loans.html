@@ -11,12 +11,13 @@
       <li><a href= "./Catalogue">View Catalogue</a></li>
       <li><a href= "./addtitle.html">Add Title</a></li>
       <li><a href= "./loans.html">Search User's Loans</a></li>
-
     </ul>
     <br>
 
-    <form action="javascript:void(0)" onsubmit="sendSearchTitlesRequest();" id="viewCatalog">
+<form action="/Loans" method="post">
     <h2>View the library catalogue:<h2>
+    User first name: <input type="text" name="forename"><br>
+    User last name: <input type="text" name="surname"><br>
     <input type="submit" value="View Catalogue">
 </form>
 

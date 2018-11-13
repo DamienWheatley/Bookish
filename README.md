@@ -114,3 +114,7 @@ Signature - "To create the signature part you have to take the encoded header, t
 api
 GET to see data in DB
 POST to add records to DB
+
+
+transactions to ensure book on loan isn't on shelf etc
+https://github.com/vitaly-t/pg-promise#transactions

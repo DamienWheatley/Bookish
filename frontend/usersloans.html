@@ -11,14 +11,12 @@
       <li><a href= "./Catalogue">View Catalogue</a></li>
       <li><a href= "./addtitle.html">Add Title</a></li>
       <li><a href= "./loans.html">Search User's Loans</a></li>
-
     </ul>
     <br>
+    {{forename}} {{surname}}'s loans are:
 
-    <form action="javascript:void(0)" onsubmit="sendSearchTitlesRequest();" id="viewCatalog">
-    <h2>View the library catalogue:<h2>
-    <input type="submit" value="View Catalogue">
-</form>
+    {{#loan_id}} Loan number {{loan_id}}. {{title}} was checked out on {{loan_date}}, and is due back on {{return_date}}. <br>{{/loan_id}}
+
 
 
   </body>
