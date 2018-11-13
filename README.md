@@ -109,3 +109,8 @@ Signature - "To create the signature part you have to take the encoded header, t
 				base64UrlEncode(payload),
 				secret
 			}
+
+
+api
+GET to see data in DB
+POST to add records to DB
