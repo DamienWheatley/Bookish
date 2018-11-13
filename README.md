@@ -67,3 +67,45 @@ Querying the DB via pg-promises requires you to have a valid username and passwo
 				GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO bookish;
 
 Querying the DB returns data in the form of an array of objects. We've made a class Titles.js which resembles the objects pulled down; will be useful for sending up records to add to the DB.
+
+
+
+Part 4:
+
+**JSON Web Token:https://jwt.io/introduction/**
+
+After a user successfully logs in a JWT token is returned
+
+
+3 parts separated by dots: xxxxx.yyyyy.zzzzz
+Parts : Header.Payload.Signature
+
+Header - contains info on the type of the token, hashing algorithm
+
+			e.g.
+			{
+				"alg" : "HS256",
+				"typ" : "JWT"
+			}
+
+Payload - contains the claims.
+					Claims = info about the user + additional info.
+					Claims names are 3 characters long
+
+			e.g.
+			{
+				"sub" : "1234567890",
+				"name" : "John Doe"
+				"admin" : "true"
+			}
+
+Do not put secret information in the payload or header elements of a JWT unless it is encrypted. This data can't be tampered with but is readable by everyone.
+
+Signature - "To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that."
+
+			e.g.
+			{
+				base64UrlEncode(header) + "." +
+				base64UrlEncode(payload),
+				secret
+			}

@@ -31,7 +31,6 @@ db.query('SELECT * FROM Titles')
     //function to make objects
     data.forEach( object => {
       array.push(new Title(object.isbn, object.title, object.author, object.genre))
-      let json = JSON.stringify(array);
       console.log(json); //Can add app.get block here to print to localhost 3000 ,  but need to delete the above app.get block
     })
     console.log('DATA:', array)
