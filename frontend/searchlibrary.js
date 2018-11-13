@@ -1,4 +1,3 @@
-const mustache = require('mustache'); //Used locally to modify index.html
 
 
 function sendSearchTitlesRequest() {
@@ -11,11 +10,7 @@ function sendSearchTitlesRequest() {
       let response = xhttp.response;
       console.log(response);
 
-      response.forEach( title => {
-
-      })
-      var output = Mustache.render("{{title}} spends {{calc}}", view);
-
+      }
   }
   xhttp.send();
 }
