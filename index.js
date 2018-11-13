@@ -23,6 +23,11 @@ function listCatalogue(){
   }
 
 
+  function addTitle(isbn, title, author, genre){
+    db.query(`INSERT INTO Titles VALUES ('${isbn}', '${title}', '${author}', '${genre}');`)
+    return 'Book added to Bookish database'
+    }
+
   // function listUsers(){
   //   return db.query('SELECT * FROM Users')
   //     .then(function (data) {
@@ -39,3 +44,4 @@ function listCatalogue(){
 
 
 exports.listCatalogue = listCatalogue;
+exports.addTitle = addTitle;
