@@ -19,6 +19,20 @@ Create a library management API that supports the following:
 	•	View the number of copies for a book in total, and the number which are currently available. Where some books are unavailable, it shows which user borrowed them, and the date that they're due back.
 	•	Add new books by submitting the book's title, author(s), ISBN, and the number of copies owned by the library. After adding the book some barcode image(s) for the added book copies should be returned by the API so that these can be printed out on labels and stuck on the books.
 
+New software and packages used:
+
+PostgreSQL & pgAdmin : https://www.enterprisedb.com/downloads/postgres-postgresql-downloads#windows
+
+pg-promise for PostgreSQL:
+	- https://github.com/vitaly-t/pg-promise
+	- https://expressjs.com/en/guide/database-integration.html#postgresql
+	- https://www.npmjs.com/package/pg-promise#query-formatting
+body-parser for POST HTTP Requests
+
+
+
+
+**Part 1: Design the Database**
 
 Table : Users
 	- PK : user ID
@@ -46,16 +60,19 @@ Table : Loans
 	- fine amount : 0 default
 
 
-
-
 	https://stackoverflow.com/questions/9875223/auto-increment-table-column
 
 
 Made Schema using http://db.lewagon.com/ as a starting point and then editing the generated SQL.
 
+For column entries that can only take certain values (e.g. True, False), created a Enumerated Type data type
+https://www.postgresql.org/docs/9.2/datatype-enum.html
+
+
 Foreign keys need to be set up last due to depending on all tables being created first.
 
-Querying the DB via pg-promises requires you to have a valid username and password, and the DB set up so that user either has ownership of the bookish DB or has permissions given to them by the DB owner.
+Querying the DB via pg-promises requires you to have a valid username and password, and the DB set up so that user either has **ownership** of the bookish DB or has permissions (see below) given to them by the DB owner.
+https://stackoverflow.com/questions/39169264/pgadmin-getting-detail-user-does-not-have-connect-privilege-error
 
 				GRANT CONNECT ON DATABASE bookish TO bookish;
 				GRANT USAGE ON SCHEMA public TO bookish;
@@ -70,9 +87,13 @@ Querying the DB returns data in the form of an array of objects. We've made a cl
 
 
 
+
+
 Part 4:
 
 **JSON Web Token:https://jwt.io/introduction/**
+
+passport-jwt : https://github.com/themikenicholson/passport-jwt
 
 After a user successfully logs in a JWT token is returned
 
@@ -115,6 +136,11 @@ api
 GET to see data in DB
 POST to add records to DB
 
+
+**************************
+body-parser for POST HTTP Requests - https://stackoverflow.com/questions/5710358/how-to-retrieve-post-query-parameters
+
+HTML forms = https://www.w3schools.com/tags/att_form_method.asp
 
 transactions to ensure book on loan isn't on shelf etc
 https://github.com/vitaly-t/pg-promise#transactions

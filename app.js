@@ -7,6 +7,8 @@ const listCatalogue = require('./index.js').listCatalogue;
 const addTitle = require('./index.js').addTitle;
 const getUserID = require('./index.js').getUserID;
 const getUserLoans = require('./index.js').getUserLoans;
+const searchByTitle = require('./index.js').searchByTitle;
+const searchByAuthor = require('./index.js').searchByAuthor;
 
 
 
@@ -54,14 +56,34 @@ app.post('/Loans', (request, response) => {
   getUserID(forename, surname).then( user => {
     return getUserLoans(user.user_id)
   })
-  .then( userloans => {
-    test = userloans.usersloans[0]; //NEED TO MAKE THIS ITERATE WITH MUSTACHE SIMILAR TO CATALOGUE OBJ:ARRAY:OBJECTS ABOVE
+  .then( x => {
     const template = fs.readFileSync( './frontend/usersloans.html' , {encoding: 'UTF-8'});
-    let html = mustache.render( template, test);
+    let html = mustache.render( template, x);
     response.send(html)
   })
 })
 
+
+app.post('/Search', (request, response) => {
+    let queryString = request.body.queryString,
+        queryType = request.body.queryType;
+    let result
+    switch (queryType) {
+      case 'author':
+        result = searchByAuthor(queryString);
+        break;
+      case 'title':
+        result = searchByTitle(queryString);
+        break;
+      default:
+        break;
+    }
+    result.then( x => {
+      const template = fs.readFileSync( './frontend/searchresults.html' , {encoding: 'UTF-8'});
+      let html = mustache.render( template, x);
+      response.send(html)
+    })
+})
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

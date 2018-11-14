@@ -12,13 +12,15 @@
       <li><a href= "./addtitle.html">Add Title</a></li>
       <li><a href= "./loans.html">Search User's Loans</a></li>
       <li><a href= "./search.html">Search the Catalogue</a></li>
-
-
     </ul>
     <br>
 
+    <h2>Search results</h2><br>
 
 
+    {{#title}}
+      {{title}} by {{author}}.<br>
+    {{/title}}
 
   </body>
   <script src="searchlibrary.js"></script>

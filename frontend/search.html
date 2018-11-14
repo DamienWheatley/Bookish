@@ -12,12 +12,22 @@
       <li><a href= "./addtitle.html">Add Title</a></li>
       <li><a href= "./loans.html">Search User's Loans</a></li>
       <li><a href= "./search.html">Search the Catalogue</a></li>
-
-
     </ul>
     <br>
 
-
+  <form action="/Search" method="post">
+    <h2>Search the library catalogue:<h2>
+      <section>
+        Search query: <input type="text" name="queryString">
+      </section>
+      <section>
+        <select name="queryType">
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+        </select>
+      </section>
+      <input type="submit" value="Search">
+  </form>
 
 
   </body>

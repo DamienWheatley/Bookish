@@ -22,3 +22,11 @@ INSERT INTO Loans(User_ID, Book_ID, Loan_Date, Return_Date, Loan_Status) VALUES 
 
 
 SELECT * FROM Users;
+
+
+
+--------Using transactions to ensure book taken off shelf when loaned output
+BEGIN;
+INSERT INTO Loans(User_ID, Book_ID, Loan_Date, Return_Date, Loan_Status) VALUES (2, 4, '12/12/2018', '2/13/2018', 'On Loan');
+UPDATE Books SET on_shelf = FALSE WHERE book_id = 4;
+COMMIT;

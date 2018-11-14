@@ -57,17 +57,51 @@ function listCatalogue(){
     .then(function (data) {
       let array = [];
       data.forEach( object => {
-        array.push(new UserLoan(object.loan_id, object.user_id, moment(object.loan_date).subtract(10, 'days').calendar(), moment(object.return_date).subtract(10, 'days').calendar(), object.forename, object.surname, object.book_id, object.title, object.isbn))
+        array.push(new UserLoan(object.loan_id, object.user_id, moment(object.loan_date).format('L'), moment(object.return_date).format('L'), object.forename, object.surname, object.book_id, object.title, object.isbn))
       })
       return {
-        usersloans: array
+        forename : data[0].forename,
+        surname : data[0].surname,
+        usersloans: array,
       };
     })
 
   }
 
 
+  function searchByAuthor(string){
+    return db.query(`SELECT author, title, isbn, genre\
+      FROM Titles\
+      WHERE author = '${string}';`)
+    .then(function (data) {
+      let titles = [];
+      data.forEach( object => {
+        titles.push(new Title(object.isbn, object.title, object.author, object.genre));
+      })
+      return {
+        titles: titles,
+      };
+    })
+  }
+
+  function searchByTitle(string){
+    return db.query(`SELECT author, title, isbn, genre\
+      FROM Titles\
+      WHERE title = '${string}';`)
+    .then(function (data) {
+      let titles = [];
+        data.forEach( object => {
+          titles.push(new Title(object.isbn, object.title, object.author, object.genre))
+        })
+      return {
+        titles : titles
+      }
+    })
+  }
+
 exports.listCatalogue = listCatalogue;
 exports.addTitle = addTitle;
 exports.getUserID = getUserID;
 exports.getUserLoans = getUserLoans;
+exports.searchByAuthor = searchByAuthor;
+exports.searchByTitle = searchByTitle;
