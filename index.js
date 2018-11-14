@@ -60,6 +60,8 @@ function listCatalogue(){
         array.push(new UserLoan(object.loan_id, object.user_id, moment(object.loan_date).subtract(10, 'days').calendar(), moment(object.return_date).subtract(10, 'days').calendar(), object.forename, object.surname, object.book_id, object.title, object.isbn))
       })
       return {
+        surname: data[0].surname,
+        forename: data[0].forename,
         usersloans: array
       };
     })

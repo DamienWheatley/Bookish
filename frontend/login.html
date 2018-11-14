@@ -13,14 +13,15 @@
   </head>
   <body class="main">
     <div class="body">
-      <h2>Add a Title to the Library</h2>
-      <form action="/AddTitle" method="post">
-        Book title: <br><input type="text" name="title"><br>
-        Author: <br><input type="text" name="author"><br>
-        Genre: <br><input type="text" name="genre"><br>
-        ISBN: <br><input type="text" name="isbn"><br>
-        <input type="submit" value="Submit">
-      </form>  
-    </div>
+    <h2>Login</h2>
+    <form action="/Loans" method="post">
+      Username:<br> <input type="text" name="username"><br>
+      Password:<br> <input type="text" name="password"><br>
+    <input type="submit" value="Login" onsubmit="takeCredentials()">
+  </form>
+
+  </div>
   </body>
+  <script src="searchlibrary.js"></script>
+
 </html>

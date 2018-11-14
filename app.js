@@ -1,24 +1,32 @@
 //- Server
-
 const express = require('express')
-const app = express()
-const port = 3000 //for server
 const listCatalogue = require('./index.js').listCatalogue;
 const addTitle = require('./index.js').addTitle;
 const getUserID = require('./index.js').getUserID;
 const getUserLoans = require('./index.js').getUserLoans;
-
-
-
 const mustache = require('mustache');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+// const jwt = require('jsonwebtoken')
+
+// let secret = bookish;
+
+// let token = jwt.sign( {username},secret)
+
+const app = express()
+const port = 3000 //for server
+
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
 
 app.use(express.static('frontend'));
+
+app.get('/login', (req,res) => {
+  let x = "5";
+  res.send(x)
+})
 
 app.get('/Catalogue', (request, response) => {
   let output = listCatalogue();
@@ -55,9 +63,8 @@ app.post('/Loans', (request, response) => {
     return getUserLoans(user.user_id)
   })
   .then( userloans => {
-    test = userloans.usersloans[0]; //NEED TO MAKE THIS ITERATE WITH MUSTACHE SIMILAR TO CATALOGUE OBJ:ARRAY:OBJECTS ABOVE
     const template = fs.readFileSync( './frontend/usersloans.html' , {encoding: 'UTF-8'});
-    let html = mustache.render( template, test);
+    let html = mustache.render( template, userloans);
     response.send(html)
   })
 })

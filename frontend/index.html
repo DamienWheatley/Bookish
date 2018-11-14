@@ -4,23 +4,19 @@
     <meta charset="utf-8">
     <title>Bookish</title>
     <link rel="stylesheet" href="styles.css">
+    <nav class="floating-menu">
+      <a href= "./index.html">Home</a>
+      <a href= "./Catalogue">View Catalogue</a>
+      <a href= "./addtitle.html">Add Title</a>
+      <a href= "./loans.html">Search User's Loans</a>
+    </nav>
   </head>
-  <body>
-    <ul>
-      <li><a href= "./index.html">Home</a></li>
-      <li><a href= "./Catalogue">View Catalogue</a></li>
-      <li><a href= "./addtitle.html">Add Title</a></li>
-      <li><a href= "./loans.html">Search User's Loans</a></li>
-
-    </ul>
-    <br>
-
-    <form action="javascript:void(0)" onsubmit="sendSearchTitlesRequest();" id="viewCatalog">
-    <h2>View the library catalogue:<h2>
-    <input type="submit" value="View Catalogue">
-</form>
-
-
+  <body class="main">
+    <div class="body">
+      <h2>Welcome to the Bookish Library</h2>
+      <img src='https://uploads-ssl.webflow.com/57dc5ba03bd579bc1ed6eab6/5b8536893f4d642704a25e43_vegan-plantbased-britishlibrary.jpg' alt='Library' width="800" height="600">
+      </form>
+    </div>
   </body>
   <script src="searchlibrary.js"></script>
 

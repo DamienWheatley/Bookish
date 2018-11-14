@@ -13,7 +13,12 @@ GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO bookish;
 ---- Example records in each Table
 
 INSERT INTO Titles VALUES ('978-3-16-148410-0', 'Harry Potter', 'JK Rowling', 'Fantasy');
-INSERT INTO Books(Title_ISBN, On_Shelf) VALUES ('978-3-16-148410-0', FALSE);
+
+INSERT INTO Books(ISBN, On_Shelf) VALUES ('978-3-16-148410-0', FALSE);
+INSERT INTO Books(ISBN, On_Shelf) VALUES ('258-5-76-344453-2', FALSE);
+INSERT INTO Books(ISBN, On_Shelf) VALUES ('258-5-76-543345-2', FALSE);
+INSERT INTO Books(ISBN, On_Shelf) VALUES ('978-4-78-56334-2', TRUE);
+INSERT INTO Books(ISBN, On_Shelf) VALUES ('124-3-76-134235-4', TRUE);
 
 INSERT INTO Users(Forename, Surname) VALUES ('Bob', 'Bloggs');
 INSERT INTO Users(Forename, Surname) VALUES ('Joe', 'Bloggs');
